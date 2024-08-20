@@ -1,9 +1,9 @@
-import React from "react";
+import React from "react"
 
 const Total = ({parts}) => {
     let total = parts.reduce((sum , part) => {
-        sum = sum + part.exercises;
-        return sum;
+        sum = sum + part.exercises
+        return sum
     } , 0)
 
    return (
@@ -14,4 +14,4 @@ const Total = ({parts}) => {
 
 }
 
-export default Total;
+export default Total

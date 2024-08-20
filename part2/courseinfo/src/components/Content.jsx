@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const Part = ({ part }) => {
   return (
@@ -10,7 +10,7 @@ const Part = ({ part }) => {
 
 
 const Content = ({ parts }) => {
-    // console.log("Parts:", parts);
+    // console.log("Parts:", parts)
      return (
        <div>
       {parts.map((part , id) => (
@@ -18,7 +18,7 @@ const Content = ({ parts }) => {
        ))}
 
        </div>
-     );
-   };
+     )
+   }
 
-export default Content;
+export default Content
