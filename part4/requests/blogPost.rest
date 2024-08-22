@@ -1,0 +1,58 @@
+POST   http://localhost:3003/api/blogs/
+Content-Type: application/json
+
+{
+    "title": " Sunset",
+    "author": "Chloe Fox",
+    "url": "www.natufry.com",
+    "likes": 29,
+    "userId": "6685ec36bf02bf2f3d675631"
+}
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+
+{
+    "username" : "Hick nail",
+    "name" : "muntap",
+    "password": "kuku22"
+}
+
+###
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+
+{
+    "username" : "okay123",
+    "password": "okay"
+}
+
+###
+POST   http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhpY2sgbmFpbCIsImlkIjoiNjY4NWVjMzZiZjAyYmYyZjNkNjc1NjMxIiwiaWF0IjoxNzIyMjQ3NTA3LCJleHAiOjE3MjIyNTExMDd9.HgMtwcqMgQ0-tB_EydPD-6_Ou9pkY0T7gEzS2vc2G6E
+
+
+
+{
+    "title": " pain",
+    "author": "Talat Masood",
+    "url": "www.exy.co",
+    "likes": 7
+}
+###
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+
+{
+    "username" : "Hick nail",
+    "password": "kuku22"
+}
+###
+DELETE http://localhost:3003/api/blogs/66512d41756c228ba6b388f7
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhpY2sgbmFpbCIsImlkIjoiNjY4NWVjMzZiZjAyYmYyZjNkNjc1NjMxIiwiaWF0IjoxNzIyNDM1OTE0LCJleHAiOjE3MjI0Mzk1MTR9.d5w153zPte69GcFztRlCrDV6V_pHhYTCEYsdWaGtC_k
