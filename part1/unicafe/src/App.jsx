@@ -1,9 +1,13 @@
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const Title = ({ text }) => {
   return <h2>{text}</h2>
 }
 
+Title.propTypes = {
+  text: PropTypes.string.isRequired
+}
 
 const Button = ({handleClick , text}) => {
   return (
@@ -11,6 +15,11 @@ const Button = ({handleClick , text}) => {
 {text}
   </button>
   )
+}
+
+Button.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired
 }
 
 const Stat = ({text , value}) => {
@@ -23,6 +32,13 @@ const Stat = ({text , value}) => {
     )
 }
 
+Stat.propTypes = {
+text: PropTypes.string.isRequired,
+value: PropTypes.oneOfType([
+   PropTypes.number,
+  PropTypes.string
+])
+}
 
 const Statistics = ({title , options : {good , neutral , bad}}) => {
 
@@ -33,14 +49,14 @@ const Statistics = ({title , options : {good , neutral , bad}}) => {
   if (total === 0 ){
     return (
       <>
-<Title>{title}</Title>
+<Title text ={title} />
 <p>No feedback is given</p>
       </>
     )
   }
   return(
      <>
-     <Title>{title}</Title>
+     <Title text={title}/>
 <table>
    <tbody>
 <Stat text = "Good" value={good} />
@@ -57,6 +73,14 @@ const Statistics = ({title , options : {good , neutral , bad}}) => {
 }
 
 
+Statistics.propTypes ={
+  title: PropTypes.string.isRequired,
+  options: PropTypes.shape({
+    good: PropTypes.number.isRequired,
+    bad: PropTypes.number.isRequired,
+    neutral : PropTypes.number.isRequired
+  }).isRequired
+}
 
 const App = () => {
   const [good, setGood] = useState(0)
