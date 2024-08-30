@@ -1,4 +1,4 @@
-import React from "react"
+import PropTypes from 'prop-types'
 
 const Total = ({parts}) => {
     let total = parts.reduce((sum , part) => {
@@ -11,7 +11,13 @@ const Total = ({parts}) => {
     total of {total} exercises
      </strong>
   )
-
 }
 
+Total.propTypes = {
+    parts: PropTypes.arrayOf(PropTypes.shape({
+    exercises: PropTypes.number.isRequired
+ })
+).isRequired
+
+}
 export default Total
