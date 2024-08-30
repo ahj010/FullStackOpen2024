@@ -8,7 +8,7 @@ const WeatherDisplay = ({country}) => {
       const api_key = import.meta.env.VITE_API_KEY
         axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${country.capital[0]}&appid=${api_key}&units=metric`)
         .then((res) =>   {
-          console.log(res.data)
+          // console.log(res.data)
           setWeather(res.data)})
     }, [country])
 
