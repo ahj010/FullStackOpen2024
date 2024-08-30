@@ -1,16 +1,24 @@
-import React from "react";
+import PropTypes from 'prop-types'
 
 const Header = ({ course }) => {
-  return <h1>{course.name}</h1>;
-};
+  return <h1>{course.name}</h1>
+}
+
+Header.propTypes = {
+course: PropTypes.object.isRequired
+}
 
 const Part = ({ part }) => {
   return (
     <p>
       {part.name} {part.exercises}
     </p>
-  );
-};
+  )
+}
+
+Part.propTypes = {
+  part: PropTypes.object.isRequired
+  }
 
 const Content = ({ course }) => {
   return (
@@ -19,16 +27,24 @@ const Content = ({ course }) => {
       <Part part={course.parts[1]} />
       <Part part={course.parts[2]} />
     </div>
-  );
-};
+  )
+}
+
+Content.propTypes = {
+  course: PropTypes.object.isRequired
+}
 
 const Total = ({ course }) => {
   return <p>Total number of exercises is {""}
     {course.parts[0].exercises +
      course.parts[1].exercises +
      course.parts[2].exercises}
-    </p>;
-};
+    </p>
+}
+
+Total.propTypes = {
+  course: PropTypes.object.isRequired
+}
 
 const App = () => {
   const course = {
@@ -47,7 +63,7 @@ const App = () => {
         exercises: 14,
       },
     ],
-  };
+  }
 
 
 
@@ -57,7 +73,7 @@ const App = () => {
       <Content course={course} />
       <Total course={course} />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
