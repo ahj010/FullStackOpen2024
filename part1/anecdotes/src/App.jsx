@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const Title = ({text}) => {
 return   <h2>{text}</h2>
+}
+
+Title.propTypes = {
+  text: PropTypes.string.isRequired,
 }
 
 const Display = ({anecdotes , votes}) => {
@@ -10,22 +15,36 @@ const Display = ({anecdotes , votes}) => {
     )
 }
 
+Display.propTypes = {
+  anecdotes: PropTypes.string.isRequired,
+  votes: PropTypes.number.isRequired
+}
 
 const Button = ({ handleAnecdote, text }) => {
   return (
     <div>
       <button onClick={handleAnecdote}>{text}</button>
     </div>
-  );
-};
+  )
+}
 
+Button.propTypes = {
+  handleAnecdote: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired
+}
 
 const ResultAnecdote = ({anecdotes , votes , heading}) => {
   const maximumVotes = Math.max(...votes)
   const maxVotesIndex = votes.indexOf(maximumVotes)
   const mostVoted = anecdotes[maxVotesIndex]
 
-  if (votes[mostVoted] === 0) {
+ResultAnecdote.propTypes = {
+  anecdotes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  votes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  heading: PropTypes.string.isRequired
+}
+
+  if (maximumVotes === 0) {
     return (
       <>
     <h2>{heading}</h2>
@@ -41,7 +60,7 @@ const ResultAnecdote = ({anecdotes , votes , heading}) => {
         <p>{mostVoted} has {maximumVotes} votes</p>
       </>
 
-  );}
+  )}
 
 
 
@@ -59,19 +78,19 @@ const ResultAnecdote = ({anecdotes , votes , heading}) => {
       ]
 
 
-  const [selected, setSelected] = useState(0);
-  const [votes, setVotes] = useState(() => new Array(anecdotes.length).fill(0));
+  const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(() => new Array(anecdotes.length).fill(0))
 
   const Randomanecdote = () => {
-    const randomIndex = Math.floor(Math.random() * anecdotes.length);
-    setSelected(randomIndex);
-  };
+    const randomIndex = Math.floor(Math.random() * anecdotes.length)
+    setSelected(randomIndex)
+  }
 
   const Voteanecdote = () => {
     const newVotes = [...votes];
     newVotes[selected] += 1;
-    setVotes(newVotes);
-  };
+    setVotes(newVotes)
+  }
 
 
   return (
@@ -82,7 +101,7 @@ const ResultAnecdote = ({anecdotes , votes , heading}) => {
       <Button handleAnecdote={Randomanecdote} text="Next anecdote" />
       <ResultAnecdote heading= "Anecdote with most votes" anecdotes={anecdotes} votes={votes} />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
