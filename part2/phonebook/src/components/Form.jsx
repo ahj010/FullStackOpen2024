@@ -20,54 +20,54 @@ const Form = ({ persons , setPersons, setMessage}) => {
         event.preventDefault();
 
         if (!newName || !newNumber) {
-            setMessage('Please submit complete details.');
-            return;
+            setMessage('Please submit complete details.')
+            return
         }
 
-        const existingPerson = persons.find(person => person.name.toLowerCase() === newName.toLowerCase());
+        const existingPerson = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
 
         if (existingPerson) {
-            const confirmUpdate = window.confirm(`${newName} is already added to the phonebook. Would you like to update the contact?`);
+            const confirmUpdate = window.confirm(`${newName} is already added to the phonebook. Would you like to update the contact?`)
 
             if (confirmUpdate) {
-                const updatedPerson = { ...existingPerson, number: newNumber };
+                const updatedPerson = { ...existingPerson, number: newNumber }
 
                 personService.updatePerson(existingPerson.id, updatedPerson)
                     .then(returnedPerson => {
-                        console.log('returnedPerson:', returnedPerson);
-                        setPersons(persons.map(person => person.id === returnedPerson.id ? returnedPerson : person));
-                        setMessage(`${updatedPerson.name} updated successfully`);
-                        setNewName('');
-                        setNewNumber('');
+                        // console.log('returnedPerson:', returnedPerson)
+                        setPersons(persons.map(person => person.id === returnedPerson.id ? returnedPerson : person))
+                        setMessage(`${updatedPerson.name} updated successfully`)
+                        setNewName('')
+                        setNewNumber('')
                     })
                     .catch(error => {
-                        console.error('Error updating person:', error);
-                        setMessage(`ERROR: Information of ${existingPerson.name} has already been removed. `);
+                        console.error('Error updating person:', error)
+                        setMessage(`ERROR: Information of ${existingPerson.name} has already been removed. `)
                          setTimeout(() => {
                             setMessage(null)
                                    }, 5000)
-                    });
-                return;
+                    })
+                return
             }
         }
 
-        const personToAdd = { name: newName, number: newNumber };
+        const personToAdd = { name: newName, number: newNumber }
 
         personService.create(personToAdd)
             .then(returnedPerson => {
                 setPersons(persons.concat(returnedPerson));
-                setMessage(`${personToAdd.name} successfully added! `);
-                setNewName('');
-                setNewNumber('');
+                setMessage(`${personToAdd.name} successfully added! `)
+                setNewName('')
+                setNewNumber('')
             })
             .catch(error => {
-                console.error('Error adding person:', error.message);
-                setMessage(`ERROR:   ${error.response.data.error}`);
+                console.error('Error adding person:', error.message)
+                setMessage(`ERROR:   ${error.response.data.error}`)
                 setTimeout(() => {
                      setMessage(null)
                            }, 5000)
-            });
-    };
+            })
+    }
 
 
  return (

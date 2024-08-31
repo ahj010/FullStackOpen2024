@@ -17,7 +17,7 @@ const App = () => {
       setPersons(initialPersons)
     })
     .catch(error => {
-      console.error("Failed to fetch persons:", error)
+      console.error("Failed to fetch persons:", error.message)
       setPersons([])})
   }, [])
 
