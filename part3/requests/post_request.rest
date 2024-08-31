@@ -3,11 +3,14 @@ Content-Type: application/json
 
 {
     "name": "Qasim Mallah",
-    "number": "334098"
+    "number": "333-4098171"
 }
 
 ###
 
+DELETE http://localhost:3001/api/persons/66d28d0cfa0c945d3eeb6992
+
+###
 PUT http://localhost:3001/api/persons/663f8113531bf302317fca28
 Content-Type: application/json
 

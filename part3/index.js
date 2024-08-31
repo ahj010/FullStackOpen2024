@@ -9,7 +9,7 @@ app.use(express.static('dist'))
 app.use(express.json())
 app.use(cors())
 
-morgan.token('obj', function (res, req) {
+morgan.token('obj', function (req) {
   return   (JSON.stringify(req.body))
 })
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :obj'))
