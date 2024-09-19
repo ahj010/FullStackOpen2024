@@ -22,7 +22,7 @@ blogsRouter.get('/', async (request, response) => {
       title: body.title,
       author: body.author,
       url: body.url,
-      likes: body.likes? body.likes : 0,
+      likes: body.likes ? body.likes : 0,
       user: user.id
     })
 
@@ -31,6 +31,7 @@ blogsRouter.get('/', async (request, response) => {
         response.status(400).end()
       }else{
         const savedBlog = await blog.save()
+        await savedBlog.populate('user', { username: 1, name: 1 })
         user.blogs = await user.blogs.concat(savedBlog._id)
         // console.log('Blog saved successfully:', savedBlog) //
         await user.save()
