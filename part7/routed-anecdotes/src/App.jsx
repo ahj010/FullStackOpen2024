@@ -74,7 +74,7 @@ const App = () => {
           <Route path='/menu' element={<Menu/>} />
           <Route path='/create' element={<CreateNew addNew={addNew}/>}/>
           <Route path='/anecdotes' element={<AnecdoteList anecdotes={anecdotes} />}/>
-        <Route path="/anecdotes/:id" element={<Anecdote anecdote={anecdote} />} />
+        <Route path="/anecdotes/:id" element={<Anecdote anecdote={anecdote} likeAnecdote={vote} />} />
           <Route path='/' element={<AnecdoteList anecdotes={anecdotes} />}/>
         </Routes>
 
