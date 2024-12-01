@@ -1,56 +1,117 @@
-import { useState } from "react";
-import Authors from "./components/Authors";
+import { useQuery, useApolloClient } from "@apollo/client";
+import { useState, useEffect } from "react";
 import Books from "./components/Books";
+import Authors from "./components/Authors";
 import NewBook from "./components/NewBook";
-import { useQuery } from "@apollo/client";
-import { ALL_BOOKS, ALL_AUTHORS } from "./queries/queries"
 import UpdateAuthor from "./components/UpdateAuthor";
+import LoginForm from './components/LoginForm';
+import Notify from './components/Notify';
+import Recommended from './components/Recommended';
+import { ALL_BOOKS, ALL_AUTHORS, USER } from './queries/queries';
 
 
 const App = () => {
-  const [page, setPage] = useState("authors");
+  const [bookFormDisplay, setBookFormDisplay] = useState(false)
+  const [authorDisplay, setAuthorDisplay] = useState(false)
+  const [token, setToken] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [recommended, setRecommended] = useState(false)
 
-  const resultBooks = useQuery(ALL_BOOKS)
-  const resultAuthors = useQuery(ALL_AUTHORS)
+
+  const resultBooks = useQuery(ALL_BOOKS, { skip: !token })
+  // console.log("Result Books: " ,resultBooks)
+  const resultAuthors = useQuery(ALL_AUTHORS, { skip: !token })
+  // console.log("Result Authors: " ,resultAuthors)
+  const resultUser = useQuery(USER, { skip: !token })
+
+  const client = useApolloClient()
+
+  useEffect(() => {
+    const savedToken = localStorage.getItem('Library-user-token');
+    if (savedToken) {
+      setToken(savedToken);
+    }
+  }, []);
 
   if (resultBooks.loading || resultAuthors.loading) {
-    return <div>Loading...</div>;
+    return <div>loading...</div>
   }
 
-  if (resultBooks.error) {
-    return <div>Error loading books: {resultBooks.error.message}</div>;
+  const books = resultBooks.data?.allBooks || []
+
+  const authors = resultAuthors.data?.allAuthors || []
+
+  const notify = (message) => {
+    setErrorMessage(message)
+    setTimeout(() => {
+      setErrorMessage(null)
+    }, 10000)
   }
 
-  if (resultAuthors.error) {
-    return <div>Error loading authors: {resultAuthors.error.message}</div>;
+  const logout = () => {
+    setToken(null)
+    localStorage.clear()
+    client.resetStore()
   }
 
-  // console.log('AUTHORS:', resultAuthors.data);
-  // console.log('BOOKS:', resultBooks.data);
 
-  const books = resultBooks.data.allBooks || []
-  const authors = resultAuthors.data.allAuthors || []
+
+  if (!token) {
+    return (
+      <div>
+        <Notify errorMessage={errorMessage} />
+        <h2>Login</h2>
+        <LoginForm
+          setToken={setToken}
+          setErrorMessage={notify}
+        />
+      </div>
+    )
+  }
 
 
 
   return (
     <div>
       <div>
-        <button onClick={() => setPage("authors")}>authors</button>
-        <button onClick={() => setPage("books")}>books</button>
-        <button onClick={() => setPage("add")}>add book</button>
-        <button onClick={() => setPage("update")}>update author</button>
+      <Notify errorMessage={errorMessage} />
       </div>
 
-      <Authors show={page === "authors"} authors={authors}/>
+      <nav>
+        <button onClick={() => setBookFormDisplay(!bookFormDisplay)}>Create new</button>
+        <button onClick={() => setAuthorDisplay(!authorDisplay)}>Authors</button>
+        <button onClick={() => setRecommended(!recommended)}>Recommended</button>
 
-      <Books show={page === "books"} books={books} />
+        {(bookFormDisplay || authorDisplay) && (
+      <button onClick={() => {
+        setBookFormDisplay(false);
+        setAuthorDisplay(false);
+      }}>Books</button>
+    )}
 
-      <NewBook show={page === "add"} />
+      {
+        token && ( <button onClick={logout}>logout</button>)
+       }
+      </nav>
 
-      <UpdateAuthor show={page === "update"} authors={authors}/>
+      {
+       bookFormDisplay && <NewBook setErrorMessage={notify} />
+      }
+
+      {
+       authorDisplay &&
+          <>
+          <Authors authors={authors}/>
+          <UpdateAuthor authors={authors} setErrorMessage={notify}/>
+          </>
+        }
+
+    {!bookFormDisplay && !authorDisplay && <Books books={books} />}
+
+    { recommended && <Recommended user={resultUser.data?.me} books={books}/>}
     </div>
-  );
-};
 
-export default App;
+  )
+}
+
+export default App
