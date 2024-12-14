@@ -166,6 +166,5 @@ const start = async () => {
   )
 }
 
-mongoose.set('debug', true);
 
 start()
