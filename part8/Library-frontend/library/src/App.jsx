@@ -8,25 +8,7 @@ import LoginForm from './components/LoginForm';
 import Notify from './components/Notify';
 import Recommended from './components/Recommended';
 import { ALL_BOOKS, ALL_AUTHORS, USER, BOOK_ADDED  } from './queries/queries';
-
-
-
-export const updateCache = (cache, query, addedBook) => {
-  const uniqByTitle = (a) => {
-    let seen = new Set()
-    return a.filter((item) => {
-      let k = item.title
-      return seen.has(k) ? false : seen.add(k)
-    })
-  }
-
-  cache.updateQuery(query, ({ allBooks }) => {
-    return {
-      allBooks: uniqByTitle(allBooks.concat(addedBook)),
-    }
-  })
-}
-
+import { updateCache } from "./utils";
 
 const App = () => {
   const [bookFormDisplay, setBookFormDisplay] = useState(false)
@@ -58,11 +40,11 @@ const App = () => {
     }
   }, [recommended, bookFormDisplay, authorDisplay, resultBooks]);
 
-
-
-  useSubscription(BOOK_ADDED, {
-    onData: ({ data, client }) => {
-      console.log(data)
+    useSubscription(BOOK_ADDED, {
+    onData: ({ data }) => {
+      if(!data){
+        return ;
+      }
       const addedBook = data.data.bookAdded
       try {
       window.alert(`${addedBook.title} added`)
@@ -73,7 +55,6 @@ const App = () => {
 
       }
   })
-
 
   if (resultBooks.loading || resultAuthors.loading) {
     return <div>loading...</div>
@@ -90,6 +71,9 @@ const App = () => {
 
   const notify = (message) => {
     setErrorMessage(message)
+    if(!token){
+      setErrorMessage('Unauthenticated. Please log in first.')
+    }
     setTimeout(() => {
       setErrorMessage(null)
     }, 5000)
