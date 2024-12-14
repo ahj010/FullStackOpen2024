@@ -5,7 +5,6 @@ const Books = require('./models/book')
 const Authors = require('./models/author')
 const Users = require('./models/user')
 const { GraphQLError } = require('graphql')
-
 const resolvers = {
     Query: {
       bookCount: async () => Books.collection.countDocuments(),
@@ -28,7 +27,6 @@ const resolvers = {
         return Books.find(filter).populate('author')
       },
       allAuthors: async () => {
-        // const author = await Authors.findOne({ name: args.author })
         return Authors.find({})
       },
       me:  (root, args, context) => {
@@ -53,37 +51,35 @@ const resolvers = {
           })
         }
 
+        let authorRegistration = await Authors.findOne({ name: args.author })
 
+                  if (!authorRegistration) {
+                    authorRegistration = new Authors({ name: args.author, bookCount: 1 })
+                    try {
+                      await authorRegistration.save()
+                    } catch (error) {
+                      throw new UserInputError("Error: "+ error.message, {
+                        invalidArgs: args,
+                      })
+                    }
+                  } else {
+                    authorRegistration.bookCount += 1
+                    await authorRegistration.save()
+                  }
 
-        const author = await Authors.findOne({ name: args.author }) || new Authors({ name: args.author })
-        if (!author._id) await author.save()
-        // let author = await Authors.findOne({ name: args.author })
-        //   if (!author) {
-        //   author = new Authors({ name: args.author })
-        //   await author.save()
-        //   }
-
-          // const bookToAdd = new Books({
-          //   title: args.title,
-          //   published: args.published,
-          //   genres: args.genres,
-          //   author: author._id
-          // })
-
-          const bookToAdd = new Books({ ...args, author: author._id })
+          const bookToAdd = new Books({ ...args, author: authorRegistration })
           // console.log(bookToAdd)
 
         try {
           await bookToAdd.save()
-          author.bookCount = author.bookCount + 1
-          await author.save()
-
         } catch (error) {
-          throw new GraphQLError('Adding a new book failed', {
+          throw new GraphQLError('Adding a new book failed' + error.message, {
             extensions: { code: 'BAD_USER_INPUT', invalidArgs: args,  error }
           })
         }
+
         pubsub.publish('BOOK_ADDED', { bookAdded: bookToAdd })
+        // console.log('Publishing new book:', bookAdded);
         return bookToAdd
       },
       editAuthor: async (root, args, context) => {

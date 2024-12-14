@@ -1,15 +1,19 @@
 const { ApolloServer } = require('@apollo/server')
 
-const { expressMiddleware } = require('@apollo/server/express4')
 const { ApolloServerPluginDrainHttpServer } = require('@apollo/server/plugin/drainHttpServer')
+const { expressMiddleware } = require('@apollo/server/express4')
 const { makeExecutableSchema } = require('@graphql-tools/schema')
-const express = require('express')
-const cors = require('cors')
-const http = require('http')
-const jwt = require('jsonwebtoken')
 
 const { WebSocketServer } = require('ws')
 const { useServer } = require('graphql-ws/lib/use/ws')
+
+const http = require('http')
+const express = require('express')
+const bodyParser = require('body-parser')
+
+const cors = require('cors')
+const jwt = require('jsonwebtoken')
+
 
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
@@ -122,7 +126,7 @@ const start = async () => {
   const serverCleanup = useServer({ schema }, wsServer)
 
   const server = new ApolloServer({
-    schema,
+    schema: makeExecutableSchema({typeDefs, resolvers}),
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer }),
       {
         async serverWillStart() {
@@ -149,7 +153,6 @@ const start = async () => {
         if (auth && auth.startsWith('Bearer ')) {
           const decodedToken = jwt.verify(auth.substring(7), process.env.JWT_SECRET)
           const currentUser = await User.findById(decodedToken.id)
-          // console.log(currentUser)
           return { currentUser }
         }
       },
@@ -162,5 +165,7 @@ const start = async () => {
     console.log(`Server is now running on http://localhost:${PORT}`)
   )
 }
+
+mongoose.set('debug', true);
 
 start()
