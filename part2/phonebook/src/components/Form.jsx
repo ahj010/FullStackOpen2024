@@ -34,7 +34,6 @@ const Form = ({ persons , setPersons, setMessage}) => {
 
                 personService.updatePerson(existingPerson.id, updatedPerson)
                     .then(returnedPerson => {
-                        // console.log('returnedPerson:', returnedPerson)
                         setPersons(persons.map(person => person.id === returnedPerson.id ? returnedPerson : person))
                         setMessage(`${updatedPerson.name} updated successfully`)
                         setNewName('')
@@ -71,29 +70,38 @@ const Form = ({ persons , setPersons, setMessage}) => {
 
 
  return (
-
-   <form onSubmit={handleFormSubmit} >
-    <div>
-      Name: <input
-        placeholder='add a new name..'
+  <div className='bg-yellow-500 flex justify-center items-center rounded w-full  p-6'>
+  <div className="flex flex-col items-center justify-center p-5 rounded shadow-none hover:shadow-md w-1/2 ">
+  <h3 className="text-lg font-bold text-center mb-4 mr-3">Add a new contact</h3>
+    <form onSubmit={handleFormSubmit} className="flex flex-row items-center justify-center" >
+    <div className="flex flex-row items-center font-semibold  ">
+      <label htmlFor="name" className="m-1 "> Name: </label>
+      <input
+        id="name"
+        placeholder=' new name.. '
         value={newName}
         onChange={addnewName}
+        className="bg-stone-200 rounded-md px-4 py-1 m-2 w-full"
       />
     </div>
 
-    <div>
-      Number: <input
-        placeholder='add a new number..'
+    <div className="flex flex-row items-center font-semibold  ">
+    <label htmlFor="number" className="m-1">Number:</label>
+    <input
+        id="number"
+        placeholder='00-000000'
         value={newNumber}
         onChange={addNewNumber}
+        className="bg-stone-200 rounded-md px-6 py-1 m-2 w-full"
       />
     </div>
 
     <div>
-      <button type="submit">add</button>
+      <button type="submit" className="bg-black text-white opacity-100 hover:bg-opacity-5 rounded-md px-2 py-1 m-2">Add</button>
     </div>
   </form>
-
+  </div>
+  </div>
  )
 }
 

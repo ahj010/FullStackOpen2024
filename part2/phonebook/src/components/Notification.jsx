@@ -2,18 +2,19 @@ import PropTypes from 'prop-types'
 
 const successStyle = {
   color: 'green',
-  background: 'lightgrey',
-  font_size: 20,
+  background: 'black',
+  font_size: 30,
+  font_style: 'bold',
   border_style: 'solid',
-  border_radius: 5,
   padding: 10,
   margin_bottom: 10
 }
 
 const errorStyle = {
   color: 'red',
-  background: 'lightgrey',
-  font_size: 20,
+  background: 'black',
+  font_size: 30,
+  font_style: 'bold',
   border_style: 'solid',
   border_radius: 5,
   padding: 10,

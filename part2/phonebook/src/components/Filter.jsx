@@ -1,44 +1,31 @@
-import { useState } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-
-const Filter =  ({persons}) => {
-  
-    const [query, setQuery] = useState('')
-
-    const handleSearch = (event) => {
-        const query = event.target.value
-        setQuery(query)
-      }
-
-        const filteredlist = persons.filter((person) =>
-       ( person.name && person.name.toLowerCase().includes(query.toLowerCase()) ) ||
-        (person.number && person.number.includes(query))
-      )
-
+const Filter = ({ query, setQuery }) => {
+  const handleSearch = (event) => {
+    setQuery(event.target.value);
+  };
 
   return (
-    <div>
-    <div>Search by name: <input
-      value={query}
-      onChange={handleSearch}
-      className='search'
-    />
+    <div className="flex flex-row items-center font-semibold">
+      <label
+        htmlFor="search"
+        className="text-yellow-400 font-bold ml-28 text-lg"
+      >
+        Search:
+      </label>
+      <input
+        id="search"
+        value={query}
+        onChange={handleSearch}
+        className="bg-stone-200 rounded-md px-3 py-2 m-4 w-3/4 items-center"
+      />
     </div>
-    <div>
-      <ul>
-        {   query && (filteredlist.map(person => {
-        return  <li key={person.id} >{person.name} {person.number}</li>    }
-        ))
-        }
-      </ul>
-    </div>
-    </div>
-  ) }
+  );
+};
 
 Filter.propTypes = {
-  persons: PropTypes.array.isRequired
-}
+  query: PropTypes.string.isRequired,
+  setQuery: PropTypes.func.isRequired,
+};
 
-
-export default Filter
+export default Filter;

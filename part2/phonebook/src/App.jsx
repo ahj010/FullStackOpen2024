@@ -1,5 +1,4 @@
 import { useState , useEffect } from 'react'
-import Filter from './components/Filter'
 import Form from './components/Form'
 import Phonebook from './components/Phonebook'
 import Notification from './components/Notification'
@@ -32,26 +31,27 @@ const App = () => {
 }, [message])
 
   return (
-     <div>
-        <Notification message={message} setMessage={setMessage} />
-      <h2> Phonebook </h2>
+     <div className='bg-zinc-950 w-screen h-full '>
       <div>
+      <h1 className='text-2xl m-5 text-center pr-10 font-extrabold font-sans text-yellow-400'> Phonebook </h1>
       </div>
-    <Filter persons={persons} />
+        <Notification message={message} setMessage={setMessage} />
 
-    <h3> Add a new contact </h3>
+    <div>
     <Form
      persons={persons}
      setPersons={setPersons}
      setMessage={setMessage}
      />
+    </div>
 
-    <h3> Numbers </h3>
+    <div>
     <Phonebook
     persons={persons}
     setPersons={setPersons}
     setMessage={setMessage}
     />
+    </div>
 
     </div>
   )
