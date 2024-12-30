@@ -31,29 +31,32 @@ const App = () => {
 }, [message])
 
   return (
-     <div className='bg-zinc-950 w-screen h-full '>
-      <div>
-      <h1 className='text-2xl m-5 text-center pr-10 font-extrabold font-sans text-yellow-400'> Phonebook </h1>
-      </div>
-        <Notification message={message} setMessage={setMessage} />
+    <div className="bg-zinc-950 min-h-screen w-full">
+  <div>
+    <h1 className="text-2xl m-5 text-center font-extrabold text-yellow-400 sm:text-3xl md:m-10">
+      Phonebook
+    </h1>
+  </div>
 
-    <div>
+  <Notification message={message} setMessage={setMessage} />
+
+  <div className="flex flex-col items-center justify-center mt-6 px-4 sm:px-10">
     <Form
-     persons={persons}
-     setPersons={setPersons}
-     setMessage={setMessage}
-     />
-    </div>
-
-    <div>
-    <Phonebook
-    persons={persons}
-    setPersons={setPersons}
-    setMessage={setMessage}
+      persons={persons}
+      setPersons={setPersons}
+      setMessage={setMessage}
     />
-    </div>
+  </div>
 
-    </div>
+  <div className="flex flex-col items-center justify-center mt-8 px-4 sm:px-10">
+    <Phonebook
+      persons={persons}
+      setPersons={setPersons}
+      setMessage={setMessage}
+    />
+  </div>
+</div>
+
   )
 }
 
