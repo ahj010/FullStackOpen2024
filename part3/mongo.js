@@ -5,10 +5,11 @@ if (process.argv.length<3) {
   process.exit(1)
 }
 
-const password = process.argv[2]
+const username = process.argv[2]
+const password = process.argv[3]
 
 const url =
-  `mongodb+srv://alihaiderjaffry110:${password}@cluster0.dbslyrp.mongodb.net/Phonebook?retryWrites=true&w=majority`
+  `mongodb+srv://${username}:${password}@cluster0.dbslyrp.mongodb.net/Phonebook?retryWrites=true&w=majority`
 
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
