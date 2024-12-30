@@ -1,4 +1,15 @@
-/* .error {
+body {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+
+.error {
   color: red;
   background: lightgrey;
   font-size: 20px;
@@ -17,4 +28,4 @@
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
-} */
+}

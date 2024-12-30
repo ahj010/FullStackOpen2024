@@ -27,9 +27,9 @@ const LoginForm = ({ handleLogin }) => {
 
     <form onSubmit={onSubmit}>
       <div>
-        username
+        Username
         <TextField
-                   label="Username"
+                   label="admin"
                    variant="outlined"
                    fullWidth
                    margin="normal"
@@ -38,9 +38,9 @@ const LoginForm = ({ handleLogin }) => {
         />
       </div>
       <div>
-        password
+        Password
         <TextField
-          label="Password"
+          label="admin"
           type="password"
           variant="outlined"
           fullWidth

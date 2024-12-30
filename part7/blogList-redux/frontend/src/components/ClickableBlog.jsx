@@ -28,7 +28,7 @@ const ClickableBlog = ({ addLikes, deleteBlog, user }) => {
       </Typography>
 
       <Typography variant="body2" sx={{ mb: 2 }}>
-        Added by {blog.user.username}
+        Added by {blog.user.name}
       </Typography>
 
       {blog.user.username === user.username && (

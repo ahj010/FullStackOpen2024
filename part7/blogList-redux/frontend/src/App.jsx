@@ -21,7 +21,7 @@ import {Routes, Route, Link, useNavigate, Navigate} from 'react-router-dom'
 import {
   createTheme, ThemeProvider, CssBaseline, Table, Typography, TableHead,
   TableBody, TableRow, TableCell,
-  AppBar, Toolbar, Button, Box
+  AppBar, Toolbar, Button, Box, Grid
  } from '@mui/material';
 
 
@@ -188,50 +188,42 @@ const App = () => {
         default: '#f5f5f5',
       },
     },
+    typography: {
+      h6: {
+        fontSize: '1.25rem',
+        '@media (max-width:600px)': {
+          fontSize: '1rem',
+        },
+      },
+    },
   });
 
   return (
-    <ThemeProvider theme={theme}>
+<ThemeProvider theme={theme}>
   <CssBaseline />
-  <div>
-    <div>
-  <div>
-    {!user ? (
-      <>
-      <Notification/>
-      <LoginForm handleLogin={handleLogin}/>
-      </>
-    ) :
-    <div>
-          <Box>
-         <AppBar position="static">
-           <Toolbar>
-             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-               <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+  <Grid container spacing={2}>
+    <Grid item xs={12}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
               Blog App
-               </Link>
-              </Typography>
-              <Typography variant="h6" align="right" sx= {{flexGrow: 1}}>
-                <Button color="inherit" onClick={toggleBlogForm}>
-                  New Blog
-                </Button>
-             </Typography>
-             <Button color="inherit" component={Link} to="/blogs">
-               Blogs
-             </Button>
-             <Button color="inherit" component={Link} to="/users">
-               Users
-             </Button>
-             <Button color="inherit" component={Link} to="/login" onClick={handleLogout}>
-             Logout
-             </Button>
-             </Toolbar>
-             </AppBar>
-</Box>
-        <Notification />
-    {showBlogForm && <BlogForm addBlog={addBlog} toggleBlogForm={toggleBlogForm}/>}
-<Routes>
-<Route path="/users" element={
+            </Link>
+          </Typography>
+          <Button color="inherit" onClick={toggleBlogForm}>New Blog</Button>
+          <Button color="inherit" component={Link} to="/blogs">Blogs</Button>
+          <Button color="inherit" component={Link} to="/users">Users</Button>
+          <Button color="inherit" component={Link} to="/login" onClick={handleLogout}>Logout</Button>
+        </Toolbar>
+      </AppBar>
+      <Notification />
+    </Grid>
+    <Grid item xs={12}>
+      {showBlogForm && <BlogForm addBlog={addBlog} toggleBlogForm={toggleBlogForm} />}
+    </Grid>
+    <Grid item xs={12}>
+    <Routes>
+ <Route path="/users" element={
   user ? (
     <MainLayout>
       <Typography variant="h4" gutterBottom p={'20px'}>Users</Typography>
@@ -253,6 +245,17 @@ const App = () => {
     <Navigate replace to='/login' />
   )
 } />
+<Route path="/" element={
+        <MainLayout>
+    {blogs.map((blog) => (
+    <Blog
+      key={blog.id}
+      blog={blog}
+    />
+  ))}
+        </MainLayout>
+        }/>
+
       <Route path="/users/:id" element={
         <UserDetailLayout>
           <ClickableUser/>
@@ -282,11 +285,8 @@ const App = () => {
         </LoginLayout>
         }/>
     </Routes>
-</div>
-}
-  </div>
-  </div>
-</div>
+    </Grid>
+  </Grid>
 </ThemeProvider>
 
 );
