@@ -38,52 +38,16 @@ const Phonebook = ({ persons, setPersons, setMessage }) => {
   );
 
   return (
-//     <div className="w-screen h-screen">
-//       <h3 className="text-xl font-bold mt-10 text-center pr-10 text-yellow-400">
-//         Contacts
-//       </h3>
-//       <Filter query={query} setQuery={setQuery} />
-//       <ul className="text-lg font-bold mt-10 text-center w-full text-yellow-500">
-//   <table className="table-auto w-full max-w-3xl mx-auto bg-stone-900 rounded text-left">
-//     <thead className="bg-zinc-400 text-black text-lg font-bold" >
-//       <tr>
-//         <th className="py-2 px-4">Name</th>
-//         <th className="py-2 px-6">Number</th>
-//         <th className="py-2 px-4 text-center">Action</th>
-//       </tr>
-//     </thead>
-//     <tbody>
-//       {filteredPersons.map((person) => (
-//         <tr key={person.id} className="bg-stone-900 ">
-//           <td className="py-2 px-4">{person.name}</td>
-//           <td className="py-2 px-4">{person.number}</td>
-//           <td className="py-2 px-4 text-center">
-//             <button
-//               onClick={() => deletePerson(person.id)}
-//               className="w-24 bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded"
-//             >
-//               Delete
-//             </button>
-//           </td>
-//         </tr>
-//       ))}
-//     </tbody>
-//   </table>
-// </ul>
-
-//     </div>
 
 <div className="w-screen h-screen bg-zinc-950">
   <h3 className="text-2xl font-bold mt-10 text-center text-yellow-400 sm:text-3xl">
     Contacts
   </h3>
 
-  {/* Filter Section */}
   <div className="flex justify-center mt-6">
     <Filter query={query} setQuery={setQuery} />
   </div>
 
-  {/* Table Section */}
   <ul className="text-lg font-bold mt-10 w-full">
     <table className="table-auto w-full max-w-4xl mx-auto bg-stone-900 rounded-lg shadow-md text-left">
       <thead className="bg-zinc-800 text-yellow-500 text-lg font-bold">
@@ -112,7 +76,6 @@ const Phonebook = ({ persons, setPersons, setMessage }) => {
     </table>
   </ul>
 </div>
-
   );
 };
 
