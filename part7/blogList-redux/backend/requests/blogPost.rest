@@ -15,9 +15,9 @@ Content-Type: application/json
 
 
 {
-    "username" : "Hick nail",
-    "name" : "muntap",
-    "password": "kuku22"
+    "username" : "admin",
+    "name" : "viewer",
+    "password": "admin"
 }
 
 ###
@@ -26,8 +26,9 @@ Content-Type: application/json
 
 
 {
-    "username" : "okay123",
-    "password": "okay"
+    "username" : "admin",
+    "name": "viewer",
+    "password": "admin"
 }
 
 ###
