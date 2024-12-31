@@ -68,7 +68,6 @@ const resolvers = {
                   }
 
           const bookToAdd = new Books({ ...args, author: authorRegistration })
-          // console.log(bookToAdd)
 
         try {
           await bookToAdd.save()
@@ -79,7 +78,6 @@ const resolvers = {
         }
 
         pubsub.publish('BOOK_ADDED', { bookAdded: bookToAdd })
-        // console.log('Publishing new book:', bookAdded);
         return bookToAdd
       },
       editAuthor: async (root, args, context) => {
@@ -109,7 +107,6 @@ const resolvers = {
         const user = new Users({ username: args.username, favoriteGenre: args.favoriteGenre })
         try {
          const savedUser =  await user.save()
-        //  console.log(savedUser)
          return savedUser
         } catch (error) {
           throw new GraphQLError('Creating a new user failed', {
@@ -120,7 +117,7 @@ const resolvers = {
 
         login: async (root, args) => {
           const user =  await Users.findOne({ username: args.username })
-          if ( !user || args.password !== 'secret' ) {
+          if ( !user || args.password !== 'admin' ) {
             throw new GraphQLError('wrong credentials', {
               extensions: {
                 code: 'BAD_USER_INPUT'
