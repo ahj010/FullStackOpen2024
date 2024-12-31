@@ -1,26 +1,37 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 const Authors = ({ authors}) => {
 
 
     return (
       <div>
-        <h2>authors</h2>
-        <table>
-          <tbody>
-            <tr>
-              <th></th>
-              <th>born</th>
-              <th>books</th>
-            </tr>
+        <h2 className="text-lg font-bold m-5 text-center pr-10 bg-blend-darken ">Authors</h2>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Born</TableHead>
+              <TableHead>Books</TableHead>
+            </TableRow>
+            </TableHeader>
+
+          <TableBody>
             {authors.map((a) => (
-              <tr key={a.name}>
-                <td>{a.name}</td>
-                <td>{a.born}</td>
-                <td>{a.bookCount}</td>
-              </tr>
+              <TableRow key={a.name}>
+                <TableCell>{a.name}</TableCell>
+                <TableCell>{a.born}</TableCell>
+                <TableCell>{a.bookCount}</TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     )
   }

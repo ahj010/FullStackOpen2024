@@ -1,4 +1,15 @@
 import { useState } from 'react';
+import { Button } from "@/components/ui/button"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
+
 
 const Books = ({ books }) => {
     const uniqueGenres = books.reduce((acc, book) => {
@@ -18,33 +29,34 @@ const Books = ({ books }) => {
 
   return (
     <div>
-      <h2>Books</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Published</th>
-          </tr>
-        </thead>
+      <h2 className='text-lg font-bold m-5 text-center pr-10 bg-blend-darken '>Books</h2>
+      <Table className="items-center table-auto border border-slate-100 mb-4 rounded-md">
+        <TableHeader>
+          <TableRow className="items-center">
+            <TableHead className=" px-4 py-2 font-black">Title</TableHead>
+            <TableHead className=" px-4 py-2 font-bold">Author</TableHead>
+            <TableHead className=" px-4 py-2 font-bold">Published</TableHead>
+          </TableRow>
+          </TableHeader>
 
-        <tbody>
+        <TableBody className="items-center">
           {filteredBooks.map(b => (
-            <tr key={b.title}>
-              <td>{b.title}</td>
-              <td>{b.author.name}</td>
-              <td>{b.published}</td>
-            </tr>
+            <TableRow key={b.title} >
+              <TableCell className="px-4 py-2">{b.title}</TableCell>
+              <TableCell className="px-4 py-2">{b.author.name}</TableCell>
+              <TableCell className="px-4 py-2">{b.published}</TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
 
       <div>
-        <button onClick={() => setSelectedGenre(null)}>All Genres</button>
+        <Button onClick={() => setSelectedGenre(null) } className="m-1">All Genres</Button>
         {uniqueGenres.map(g => (
-          <button key={g} onClick={() => setSelectedGenre(g)}>
+          <Button key={g} onClick={() => setSelectedGenre(g)}   className={`m-1 hover:bg-blue-300 ${selectedGenre === g ? 'bg-blue-500' : 'bg-slate-800'}`}
+          >
             {g}
-          </button>
+          </Button>
         ))}
       </div>
     </div>

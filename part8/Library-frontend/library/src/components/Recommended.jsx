@@ -1,3 +1,12 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
 const Recommended = ({ user, books }) => {
     if (!user || !user.favoriteGenre) {
       return <p>Please log in to see recommended books.</p>;
@@ -8,27 +17,27 @@ const Recommended = ({ user, books }) => {
 
     return (
       <div>
-        <h2>Recommendations</h2>
-        <p>Books in your favorite genre: <strong>{favoriteGenre}</strong></p>
+        <h2 className='text-lg font-bold m-5 text-center pr-10 bg-blend-darken '>Recommendations</h2>
+        <p className=" m-4">Books in your favorite genre <strong>{favoriteGenre}</strong>  :</p>
         {filteredBooks.length > 0 ? (
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Author</th>
-                <th>Published</th>
-              </tr>
-            </thead>
-            <tbody>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Author</TableHead>
+                <TableHead>Published</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {filteredBooks.map(book => (
-                <tr key={book.title}>
-                  <td>{book.title}</td>
-                  <td>{book.author.name}</td>
-                  <td>{book.published}</td>
-                </tr>
+                <TableRow key={book.title}>
+                  <TableCell>{book.title}</TableCell>
+                  <TableCell>{book.author.name}</TableCell>
+                  <TableCell>{book.published}</TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         ) : (
           <p>No books available in your favorite genre.</p>
         )}
