@@ -7,7 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:3003",
+        // target: "http://localhost:3003",
+        target: "https://bloggy-gil4w7vlb-alis-projects-edaf1646.vercel.app",
         changeOrigin: true,
       },
     },
