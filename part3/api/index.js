@@ -9,7 +9,7 @@ const Person = require('../models/person')
 app.use(express.json())
 app.use(cors())
 
-const __dirname = path.resolve()
+// const __dirname = path.resolve()
 app.use(express.static(path.join(__dirname, 'dist')))
 
 morgan.token('obj', function (req) {
