@@ -1,11 +1,13 @@
 require('dotenv').config()
 const express = require('express')
+const path = require('path')
 const cors = require('cors')
 const app = express()
 const morgan = require('morgan')
 const Person = require('./models/person')
 
-app.use(express.static('dist'))
+const __dirname = path.resolve()
+app.use(express.static(path.join(__dirname, 'dist')))
 app.use(express.json())
 app.use(cors())
 
