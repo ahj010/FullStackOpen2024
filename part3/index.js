@@ -40,6 +40,11 @@ let persons = [
   }
 ]
 
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+})
+
 app.get('/api/persons', (req, res, next) => {
   Person.find({})
     .then(result => res.json(result))
