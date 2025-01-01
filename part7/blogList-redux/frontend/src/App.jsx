@@ -5,7 +5,7 @@ import Notification from "./components/Notification";
 import BlogForm from "./components/BlogForm";
 import LoginForm from "./components/LoginForm";
 import User from "./components/User";
-import ClickableUser from "./components/clickableUser";
+import ClickableUser from "./components/ClickableUser";
 import ClickableBlog from "./components/ClickableBlog";
 import MainLayout from "./layouts/MainLayout";
 import UserDetailLayout from "./layouts/UserDetailLayout";
