@@ -33,10 +33,17 @@ app.use(middleware.tokenExtractor);
 app.use("/api/blogs", blogsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
-app.use("/api/blogs", commentRouter);
+app.use("/api/comments", commentRouter);
 if (process.env.NODE_ENV === "test") {
   app.use("/api/testing", testingRouter);
 }
+if (process.env.NODE_ENV !== "development") {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
