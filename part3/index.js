@@ -4,14 +4,19 @@ const app = express()
 const cors = require('cors')
 const path = require('path')
 const morgan = require('morgan')
-const Person = require('../models/person')
 
 app.use(express.json())
-app.use(cors())
+// app.use(cors())
 
-// const __dirname = path.resolve()
+app.use(cors({
+  origin: [''],
+  methods: ['POST', 'GET'],
+  credentials: true
+}))
+
 app.use(express.static(path.join(__dirname, 'dist')))
 
+const Person = require('./models/person')
 morgan.token('obj', function (req) {
   return   (JSON.stringify(req.body))
 })
