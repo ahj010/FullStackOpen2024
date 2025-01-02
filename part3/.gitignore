@@ -1,6 +1,6 @@
 .env
+dist
 node_modules
 requests
 .vercel
 vercel.json
-dist
